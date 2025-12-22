@@ -180,18 +180,18 @@ const DishesAdmin = () => {
               </button>
             )}
           </form>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {dishes.map((dish) => (
-              <div key={dish._id} className="border p-4 rounded shadow hover:shadow-lg">
+              <div key={dish._id} className="border p-2 rounded shadow hover:shadow-md">
                 {dish.imageUrl && (
-                  <img src={dish.imageUrl} alt={dish.name} className="w-full h-40 object-cover rounded mb-2" />
+                  <img src={resolveImage(dish.imageUrl)} alt={dish.name} className="w-full h-24 object-cover rounded mb-1" />
                 )}
-                <h3 className="text-lg font-semibold">{dish.name}</h3>
-                {dish.description && <p className="text-sm text-gray-600">{dish.description}</p>}
-                <p className="text-lg font-bold text-green-600 mt-2">{formatPrice(dish.price)}</p>
-                <div className="mt-3 flex space-x-2">
-                  <button onClick={() => handleEdit(dish)} className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Edit</button>
-                  <button onClick={() => handleDelete(dish._id)} className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Delete</button>
+                <h3 className="text-sm font-semibold line-clamp-1">{dish.name}</h3>
+                {dish.description && <p className="text-xs text-gray-600 line-clamp-1">{dish.description}</p>}
+                <p className="text-sm font-bold text-green-600 mt-1">{formatPrice(dish.price)}</p>
+                <div className="mt-2 flex gap-1">
+                  <button onClick={() => handleEdit(dish)} className="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600 flex-1">Edit</button>
+                  <button onClick={() => handleDelete(dish._id)} className="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 flex-1">Delete</button>
                 </div>
               </div>
             ))}

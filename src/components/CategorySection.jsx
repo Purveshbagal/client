@@ -49,8 +49,8 @@ const CategorySection = () => {
   ];
 
   const handleCategoryClick = (categoryName) => {
-    // Navigate to home page with category filter
-    navigate(`/?category=${encodeURIComponent(categoryName)}`);
+    // Navigate to category dishes page
+    navigate(`/category/${encodeURIComponent(categoryName)}`);
   };
 
   return (

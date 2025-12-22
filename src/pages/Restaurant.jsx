@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/api';
 import DishCard from '../components/DishCard';
+import FloatingCartBar from '../components/FloatingCartBar';
 import ReviewForm from '../components/ReviewForm';
 import ReviewList from '../components/ReviewList';
 import StarRating from '../components/StarRating';
 import formatPrice from '../utils/currency';
+import resolveImage from '../utils/resolveImage';
 import { useCart } from '../hooks/useCart';
 
 const Restaurant = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { cart, updateQuantity, getTotal } = useCart();
+  const { cart, updateQuantity, getTotal, clearCart } = useCart();
   const [restaurant, setRestaurant] = useState(null);
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +46,7 @@ const Restaurant = () => {
 
   const handleReviewSubmitted = () => {
     setRefreshReviews(prev => prev + 1);
-    fetchRestaurant(); // Refresh restaurant data to update rating
+    fetchRestaurant();
   };
 
   if (loading) {
@@ -56,6 +58,7 @@ const Restaurant = () => {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-gray-50">
       {/* Restaurant Header */}
       <div className="bg-white shadow-md">
@@ -105,7 +108,7 @@ const Restaurant = () => {
             {restaurant.imageUrl && (
               <div className="rounded-lg overflow-hidden shadow-lg h-64">
                 <img
-                  src={restaurant.imageUrl}
+                  src={resolveImage(restaurant.imageUrl)}
                   alt={restaurant.name}
                   className="w-full h-full object-cover"
                 />
@@ -123,9 +126,9 @@ const Restaurant = () => {
         </div>
 
         {dishes.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {dishes.map((dish) => (
-              <DishCard key={dish._id} dish={dish} />
+              <DishCard key={dish._id} dish={dish} restaurantId={id} />
             ))}
           </div>
         ) : (
@@ -162,6 +165,9 @@ const Restaurant = () => {
         </div>
       </div>
     </div>
+
+    <FloatingCartBar />
+    </>
   );
 };
 

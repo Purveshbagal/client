@@ -2,7 +2,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white p-4 mt-8">
       <div className="container mx-auto text-center">
-        <p>&copy; 2023 Swadhan Eats. All rights reserved.</p>
+        <p>&copy; 2023-2025 Swadhan Eats. All rights reserved.</p>
       </div>
     </footer>
   );

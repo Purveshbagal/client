@@ -181,19 +181,19 @@ const RestaurantsAdmin = () => {
           </button>
         )}
       </form>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {restaurants.map((restaurant) => (
-          <div key={restaurant._id} className="border p-4 rounded shadow hover:shadow-lg">
+          <div key={restaurant._id} className="border p-2 rounded shadow hover:shadow-md">
             {restaurant.imageUrl && (
-              <img src={resolveImage(restaurant.imageUrl)} alt={restaurant.name} className="w-full h-40 object-cover rounded mb-2" />
+              <img src={resolveImage(restaurant.imageUrl)} alt={restaurant.name} className="w-full h-24 object-cover rounded mb-1" />
             )}
-            <h3 className="text-lg font-semibold">{restaurant.name}</h3>
-            <p className="text-gray-600">{restaurant.city}</p>
-            {restaurant.cuisine && <p className="text-sm text-gray-500">{Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(', ') : restaurant.cuisine}</p>}
-            <p className="text-sm text-gray-500 mt-1">{restaurant.address}</p>
-            <div className="mt-3 flex space-x-2">
-              <button onClick={() => handleEdit(restaurant)} className="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Edit</button>
-              <button onClick={() => handleDelete(restaurant._id)} className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Delete</button>
+            <h3 className="text-sm font-semibold line-clamp-1">{restaurant.name}</h3>
+            <p className="text-xs text-gray-600">{restaurant.city}</p>
+            {restaurant.cuisine && <p className="text-xs text-gray-500 line-clamp-1">{Array.isArray(restaurant.cuisine) ? restaurant.cuisine.join(', ') : restaurant.cuisine}</p>}
+            <p className="text-xs text-gray-500 line-clamp-1 mt-1">{restaurant.address}</p>
+            <div className="mt-2 flex gap-1">
+              <button onClick={() => handleEdit(restaurant)} className="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600 flex-1">Edit</button>
+              <button onClick={() => handleDelete(restaurant._id)} className="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 flex-1">Delete</button>
             </div>
           </div>
         ))}

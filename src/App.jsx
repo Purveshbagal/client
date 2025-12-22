@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import { CartProvider } from './contexts/CartContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
@@ -24,6 +25,7 @@ import RestaurantsAdmin from './pages/admin/RestaurantsAdmin';
 import OrderTracking from './pages/OrderTracking';
 import InvoicePage from './pages/InvoicePage';
 import CourierDashboard from './pages/CourierDashboard';
+import CategoryDishes from './pages/CategoryDishes';
 
 function AppContent() {
   const { user } = useContext(AuthContext);
@@ -45,6 +47,7 @@ function AppContent() {
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/category/:category" element={<CategoryDishes />} />
           <Route path="/profile" element={<Profile />}>
 
             <Route path="orders" element={<ProfileOrders />} />
@@ -71,9 +74,11 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
+      <CartProvider>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <AppContent />
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

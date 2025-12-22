@@ -1,11 +1,41 @@
 import { useOutletContext } from 'react-router-dom';
 import { useState } from 'react';
+import api from '../../api/api';
 
 export default function ProfileOrders() {
   const { activeOrders, formatPrice, getStatusColor, openTracker } = useOutletContext();
   const [expanded, setExpanded] = useState({});
+  const [cancelling, setCancelling] = useState({});
+  const [cancelReason, setCancelReason] = useState({});
 
   const toggle = (id) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  const handleCancelClick = (orderId) => {
+    setCancelling((prev) => ({ ...prev, [orderId]: !prev[orderId] }));
+  };
+
+  const handleCancelOrder = async (orderId) => {
+    const reason = cancelReason[orderId] || '';
+    
+    try {
+      const response = await api.post(`/orders/${orderId}/cancel`, { reason });
+      alert(response.data?.message || 'Order cancelled successfully!');
+      setCancelling((prev) => ({ ...prev, [orderId]: false }));
+      setCancelReason((prev) => ({ ...prev, [orderId]: '' }));
+      
+      // Optionally refresh the orders list
+      window.location.reload();
+    } catch (error) {
+      const serverMessage = error.response?.data?.message;
+      console.error('Error cancelling order:', serverMessage || error.message || error);
+      alert(serverMessage || 'Failed to cancel order. Please try again.');
+    }
+  };
+
+  const canCancelOrder = (status) => {
+    // Can only cancel if not yet delivered or already cancelled
+    return status !== 'delivered' && status !== 'cancelled';
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
@@ -62,7 +92,42 @@ export default function ProfileOrders() {
                 >
                   📍 Track Order Live
                 </button>
+                {canCancelOrder(order.status) && (
+                  <button 
+                    onClick={() => handleCancelClick(order._id)}
+                    className="flex-1 bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg font-semibold transition-all"
+                  >
+                    ❌ Cancel
+                  </button>
+                )}
               </div>
+
+              {cancelling[order._id] && (
+                <div className="bg-red-50 rounded-lg p-4 mt-4 border border-red-200">
+                  <p className="text-sm font-semibold text-red-700 mb-3">Are you sure? Provide a reason (optional):</p>
+                  <textarea
+                    value={cancelReason[order._id] || ''}
+                    onChange={(e) => setCancelReason((prev) => ({ ...prev, [order._id]: e.target.value }))}
+                    placeholder="Why are you cancelling this order?"
+                    className="w-full p-2 border border-red-200 rounded text-sm mb-3 resize-none"
+                    rows="3"
+                  />
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => handleCancelOrder(order._id)}
+                      className="flex-1 bg-red-600 text-white px-3 py-2 rounded font-semibold hover:bg-red-700 transition-all"
+                    >
+                      Yes, Cancel Order
+                    </button>
+                    <button 
+                      onClick={() => handleCancelClick(order._id)}
+                      className="flex-1 bg-gray-300 text-gray-700 px-3 py-2 rounded font-semibold hover:bg-gray-400 transition-all"
+                    >
+                      No, Keep Order
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {expanded[order._id] && (
                 <div className="bg-white rounded-lg p-4 mt-4 border border-orange-100">
