@@ -9,6 +9,7 @@ import Map from '../components/Map';
 import RestaurantCard from '../components/RestaurantCard';
 import DishCard from '../components/DishCard';
 import { toast } from 'react-toastify';
+import { API_CONFIG } from '../config/environment';
 
 const Profile = () => {
   const { user, logout, updateUser } = useContext(AuthContext);
@@ -42,7 +43,7 @@ const Profile = () => {
     let es;
     try {
       console.log('Connecting to SSE for order updates...');
-      es = new EventSource('http://localhost:5000/api/stream/events');
+      es = new EventSource('/api/stream/events');
       
       es.onopen = () => {
         console.log('SSE connection established');

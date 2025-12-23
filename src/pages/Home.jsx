@@ -41,7 +41,7 @@ const Home = () => {
   useEffect(() => {
     let es;
     try {
-      es = new EventSource('http://localhost:5000/api/stream/events');
+      es = new EventSource('/api/stream/events');
       es.addEventListener('restaurant_created', (e) => {
         // refetch restaurants when a new one is created by admin
         fetchRestaurants();

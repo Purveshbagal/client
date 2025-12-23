@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Create axios instance with base URL
+// Create axios instance with base URL (relative path for nginx proxy)
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: '/api',
 });
 
 // Request interceptor to attach Authorization header if token exists
@@ -30,7 +30,7 @@ api.interceptors.response.use(
         if (!refreshToken) {
           throw new Error('No refresh token available');
         }
-        const refreshResponse = await axios.post('http://localhost:5000/api/auth/refresh', {
+        const refreshResponse = await axios.post('/api/auth/refresh', {
           refreshToken
         });
         const newAccessToken = refreshResponse.data.accessToken;

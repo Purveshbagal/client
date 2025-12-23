@@ -1,6 +1,4 @@
-import api from '../api/api';
-
-const BACKEND_ORIGIN = (api.defaults.baseURL || '').replace(/\/api\/?$/, '') || 'http://localhost:5000';
+const BACKEND_ORIGIN = window.location.origin;
 
 export function resolveImage(url) {
   if (!url) return url;
