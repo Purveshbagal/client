@@ -10,7 +10,7 @@ const useRealtimeActivity = (options = {}) => {
     if (socketRef.current && socketRef.current.connected) return;
 
     const token = localStorage.getItem('token');
-    const url = window.location.origin;
+    const url = import.meta.env.VITE_API_URL.replace('/api', '');
 
     const socket = io(url, {
       auth: {

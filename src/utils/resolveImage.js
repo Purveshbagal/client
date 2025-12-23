@@ -1,4 +1,4 @@
-const BACKEND_ORIGIN = window.location.origin;
+const BACKEND_ORIGIN = import.meta.env.VITE_API_URL.replace('/api', '');
 
 export function resolveImage(url) {
   if (!url) return url;

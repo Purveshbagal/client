@@ -43,7 +43,7 @@ const Profile = () => {
     let es;
     try {
       console.log('Connecting to SSE for order updates...');
-      es = new EventSource('/api/stream/events');
+      es = new EventSource(`${import.meta.env.VITE_API_URL}/stream/events`);
       
       es.onopen = () => {
         console.log('SSE connection established');

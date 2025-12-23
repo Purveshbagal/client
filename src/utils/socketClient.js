@@ -11,7 +11,7 @@ let socket = null;
 export function connectSocket(token, options = {}) {
   if (socket && socket.connected) return socket;
 
-  const serverUrl = window.location.origin;
+  const serverUrl = import.meta.env.VITE_API_URL.replace('/api', '');
   socket = io(serverUrl, {
     auth: { token },
     transports: ['websocket', 'polling'],
