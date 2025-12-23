@@ -89,17 +89,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 flex items-center justify-center px-4 py-6 md:py-8">
       <div className="w-full max-w-5xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {/* Left Side - Branding */}
-          <div className="hidden md:flex flex-col justify-center items-start">
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="text-5xl">🍽️</div>
-                <h1 className="text-4xl font-black text-gray-900">Swadhan Eats</h1>
+          <div className="hidden lg:flex flex-col justify-center items-start">
+            <div className="mb-6 md:mb-8">
+              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                <div className="text-4xl md:text-5xl">🍽️</div>
+                <h1 className="text-3xl md:text-4xl font-black text-gray-900">Swadhan Eats</h1>
               </div>
-              <p className="text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
                 Order delicious food from the best restaurants and get it delivered to your doorstep in 30 minutes.
               </p>
             </div>
@@ -131,12 +131,12 @@ const Login = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-10">
             {/* Tabs */}
-            <div className="flex gap-2 mb-8 border-b border-gray-200">
+            <div className="flex gap-1 md:gap-2 mb-6 md:mb-8 border-b border-gray-200 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('user-login')}
-                className={`pb-4 px-4 font-semibold transition-all border-b-2 ${
+                className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-all border-b-2 whitespace-nowrap text-sm md:text-base ${
                   activeTab === 'user-login'
                     ? 'border-orange-500 text-orange-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -146,7 +146,7 @@ const Login = () => {
               </button>
               <button
                 onClick={() => setActiveTab('user-register')}
-                className={`pb-4 px-4 font-semibold transition-all border-b-2 ${
+                className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-all border-b-2 whitespace-nowrap text-sm md:text-base ${
                   activeTab === 'user-register'
                     ? 'border-orange-500 text-orange-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -156,7 +156,7 @@ const Login = () => {
               </button>
               <button
                 onClick={() => setActiveTab('admin-login')}
-                className={`pb-4 px-4 font-semibold transition-all border-b-2 ${
+                className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-all border-b-2 whitespace-nowrap text-sm md:text-base ${
                   activeTab === 'admin-login'
                     ? 'border-orange-500 text-orange-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
@@ -169,7 +169,7 @@ const Login = () => {
             {/* User Login Form */}
             {activeTab === 'user-login' && (
               <form onSubmit={handleUserLogin}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Welcome Back!</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Welcome Back!</h2>
 
                 <div className="mb-6">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
@@ -219,7 +219,7 @@ const Login = () => {
             {/* User Register Form */}
             {activeTab === 'user-register' && (
               <form onSubmit={handleUserRegister}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Create Account</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Create Account</h2>
 
                 <div className="mb-6">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
@@ -304,10 +304,10 @@ const Login = () => {
             {/* Admin Login Form */}
             {activeTab === 'admin-login' && (
               <form onSubmit={handleAdminLogin}>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Admin Login</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Admin Login</h2>
 
-                <div className="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-                  <p className="text-sm text-blue-700">
+                <div className="mb-4 p-3 md:p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
+                  <p className="text-xs md:text-sm text-blue-700">
                     <strong>Demo Admin Credentials:</strong> <br />
                     Email: admin@swadhaneats.com <br />
                     Password: Admin@123

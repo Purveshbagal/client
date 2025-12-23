@@ -59,36 +59,36 @@ const Restaurant = () => {
 
   return (
     <>
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pb-24">
       {/* Restaurant Header */}
       <div className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-4 md:py-8">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-6 transition"
+            className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-4 md:mb-6 transition"
           >
             ← Back
           </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            <div className="md:col-span-2">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">{restaurant.name}</h1>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8 items-start">
+            <div className="lg:col-span-2">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{restaurant.name}</h1>
 
-              <div className="flex flex-wrap items-center gap-6 mb-6">
+              <div className="flex flex-wrap items-center gap-3 md:gap-6 mb-4 md:mb-6">
                 <div className="flex items-center gap-2">
                   <StarRating rating={restaurant.averageRating || 0} readonly />
-                  <span className="text-gray-700 font-semibold">
+                  <span className="text-gray-700 font-semibold text-sm md:text-base">
                     {restaurant.averageRating?.toFixed(1) || 'N/A'} ({restaurant.reviewCount || 0} reviews)
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-600">
-                  <span className="text-xl">📍</span>
+                <div className="flex items-center gap-2 text-gray-600 text-sm md:text-base">
+                  <span className="text-lg md:text-xl">📍</span>
                   <span>{restaurant.city}</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-600">
-                  <span className="text-xl">⏱️</span>
+                <div className="flex items-center gap-2 text-gray-600 text-sm md:text-base">
+                  <span className="text-lg md:text-xl">⏱️</span>
                   <span>{restaurant.deliveryTime} min</span>
                 </div>
               </div>
@@ -97,7 +97,7 @@ const Restaurant = () => {
                 {restaurant.cuisine?.map((c) => (
                   <span
                     key={c}
-                    className="px-4 py-2 bg-orange-100 text-orange-700 rounded-full font-semibold text-sm"
+                    className="px-3 md:px-4 py-1 md:py-2 bg-orange-100 text-orange-700 rounded-full font-semibold text-xs md:text-sm"
                   >
                     {c}
                   </span>
@@ -106,7 +106,7 @@ const Restaurant = () => {
             </div>
 
             {restaurant.imageUrl && (
-              <div className="rounded-lg overflow-hidden shadow-lg h-64">
+              <div className="rounded-lg overflow-hidden shadow-lg h-48 md:h-64 mt-4 lg:mt-0">
                 <img
                   src={resolveImage(restaurant.imageUrl)}
                   alt={restaurant.name}
@@ -119,14 +119,14 @@ const Restaurant = () => {
       </div>
 
       {/* Menu Section */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Menu</h2>
-          <p className="text-gray-600">Explore delicious dishes from this restaurant</p>
+      <div className="container mx-auto px-4 py-6 md:py-12">
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Menu</h2>
+          <p className="text-gray-600 text-sm md:text-base">Explore delicious dishes from this restaurant</p>
         </div>
 
         {dishes.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
             {dishes.map((dish) => (
               <DishCard key={dish._id} dish={dish} restaurantId={id} />
             ))}
@@ -140,20 +140,20 @@ const Restaurant = () => {
       </div>
 
       {/* Reviews Section */}
-      <div className="bg-white border-t mt-12">
-        <div className="container mx-auto px-4 py-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Customer Reviews</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
+      <div className="bg-white border-t mt-8 md:mt-12">
+        <div className="container mx-auto px-4 py-6 md:py-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8">Customer Reviews</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="lg:col-span-2 order-2 lg:order-1">
               <ReviewList
                 targetType="restaurant"
                 targetId={id}
                 refreshTrigger={refreshReviews}
               />
             </div>
-            <div className="lg:col-span-1">
-              <div className="sticky top-4 bg-gray-50 rounded-lg p-6 border border-gray-200">
-                <h3 className="font-bold text-lg mb-4">Leave a Review</h3>
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="lg:sticky lg:top-4 bg-gray-50 rounded-lg p-4 md:p-6 border border-gray-200">
+                <h3 className="font-bold text-base md:text-lg mb-4">Leave a Review</h3>
                 <ReviewForm
                   targetType="restaurant"
                   targetId={id}

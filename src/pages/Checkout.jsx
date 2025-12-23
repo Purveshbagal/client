@@ -165,12 +165,12 @@ const Checkout = () => {
   if (!user) return null;
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Checkout</h1>
+    <div className="container mx-auto px-4 py-6 md:p-4 pb-20">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Checkout</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Delivery Address & Payment</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg shadow p-4 md:p-6">
+          <h2 className="text-lg md:text-xl font-semibold mb-4">Delivery Address & Payment</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4 grid grid-cols-1 gap-4">
               <div>
@@ -198,39 +198,39 @@ const Checkout = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">Payment Method</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <label className={`p-3 border rounded cursor-pointer ${paymentMethod==='cod' ? 'border-blue-600 bg-blue-50' : ''}`}>
+                <label className={`p-2 md:p-3 border rounded cursor-pointer text-sm md:text-base ${paymentMethod==='cod' ? 'border-blue-600 bg-blue-50' : ''}`}>
                   <input type="radio" name="payment" value="cod" checked={paymentMethod==='cod'} onChange={() => setPaymentMethod('cod')} className="mr-2" />
                   Cash on Delivery
                 </label>
-                <label className={`p-3 border rounded cursor-pointer ${paymentMethod==='online' ? 'border-blue-600 bg-blue-50' : ''}`}>
+                <label className={`p-2 md:p-3 border rounded cursor-pointer text-sm md:text-base ${paymentMethod==='online' ? 'border-blue-600 bg-blue-50' : ''}`}>
                   <input type="radio" name="payment" value="online" checked={paymentMethod==='online'} onChange={() => setPaymentMethod('online')} className="mr-2" />
                   Pay Online (mock)
                 </label>
-                <label className={`p-3 border rounded cursor-pointer ${paymentMethod==='razorpay' ? 'border-blue-600 bg-blue-50' : ''}`}>
+                <label className={`p-2 md:p-3 border rounded cursor-pointer text-sm md:text-base ${paymentMethod==='razorpay' ? 'border-blue-600 bg-blue-50' : ''}`}>
                   <input type="radio" name="payment" value="razorpay" checked={paymentMethod==='razorpay'} onChange={() => setPaymentMethod('razorpay')} className="mr-2" />
                   Razorpay (card/UPI)
                 </label>
-                <label className={`p-3 border rounded cursor-pointer ${paymentMethod==='upi-direct' ? 'border-blue-600 bg-blue-50' : ''}`}>
+                <label className={`p-2 md:p-3 border rounded cursor-pointer text-sm md:text-base ${paymentMethod==='upi-direct' ? 'border-blue-600 bg-blue-50' : ''}`}>
                   <input type="radio" name="payment" value="upi-direct" checked={paymentMethod==='upi-direct'} onChange={() => setPaymentMethod('upi-direct')} className="mr-2" />
-                  UPI — {UPI_ID}
+                  <span className="block sm:inline">UPI — </span><span className="text-xs md:text-sm">{UPI_ID}</span>
                 </label>
               </div>
             </div>
 
             {paymentMethod === 'upi-direct' && (
-              <div className="mb-4 border p-4 rounded">
-                <div className="flex gap-4 items-start">
-                  <div className="bg-white p-2 rounded">
-                    <QRCode value={`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent('Swadhan Eats')}&am=${Number(total).toFixed(2)}&cu=INR&tn=${encodeURIComponent('Order payment')}`} />
+              <div className="mb-4 border p-3 md:p-4 rounded">
+                <div className="flex flex-col sm:flex-row gap-4 items-start">
+                  <div className="bg-white p-2 rounded mx-auto sm:mx-0">
+                    <QRCode value={`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent('Swadhan Eats')}&am=${Number(total).toFixed(2)}&cu=INR&tn=${encodeURIComponent('Order payment')}`} size={150} />
                   </div>
-                  <div className="flex-1">
-                    <p className="mb-2">Amount: <strong>{formatPrice(total)}</strong></p>
-                    <div className="flex items-center gap-2">
-                      <code className="bg-gray-100 p-1 rounded">{UPI_ID}</code>
-                      <button type="button" onClick={() => { navigator.clipboard?.writeText(UPI_ID); toast.success('UPI ID copied'); }} className="bg-gray-200 px-2 py-1 rounded">Copy</button>
+                  <div className="flex-1 w-full">
+                    <p className="mb-2 text-sm md:text-base">Amount: <strong>{formatPrice(total)}</strong></p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <code className="bg-gray-100 p-1 rounded text-xs md:text-sm break-all">{UPI_ID}</code>
+                      <button type="button" onClick={() => { navigator.clipboard?.writeText(UPI_ID); toast.success('UPI ID copied'); }} className="bg-gray-200 px-2 py-1 rounded text-sm whitespace-nowrap">Copy</button>
                     </div>
                     <div className="mt-3">
-                      <button type="button" onClick={() => setUpiConfirming(true)} className="bg-indigo-600 text-white px-3 py-1 rounded">I have paid</button>
+                      <button type="button" onClick={() => setUpiConfirming(true)} className="bg-indigo-600 text-white px-3 md:px-4 py-2 rounded w-full sm:w-auto text-sm md:text-base">I have paid</button>
                       <p className="text-xs text-gray-500 mt-1">After you confirm, we will create the order and mark it as paid (manual verification).</p>
                     </div>
                   </div>
@@ -239,16 +239,16 @@ const Checkout = () => {
             )}
 
             <div className="mt-4">
-              <button type="submit" disabled={loading} className="bg-green-500 text-white px-4 py-2 rounded w-full disabled:opacity-50">
+              <button type="submit" disabled={loading} className="bg-green-500 text-white px-4 py-3 rounded w-full disabled:opacity-50 font-semibold text-base md:text-lg hover:bg-green-600 transition">
                 {loading ? 'Placing Order...' : 'Place Order'}
               </button>
             </div>
           </form>
         </div>
 
-        <div>
+        <div className="lg:sticky lg:top-24">
           <BillSummary items={cart} deliveryFee={2.5} showCTA={false} />
-          <div className="mt-3 text-sm text-gray-500">Review your bill before placing the order.</div>
+          <div className="mt-3 text-xs md:text-sm text-gray-500">Review your bill before placing the order.</div>
         </div>
       </div>
 
